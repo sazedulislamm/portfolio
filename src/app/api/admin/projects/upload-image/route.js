@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 function arrayBufferToBase64(arrayBuffer) {
   const bytes = new Uint8Array(arrayBuffer);
@@ -14,7 +15,9 @@ function arrayBufferToBase64(arrayBuffer) {
 
 export async function POST(request) {
   try {
-    const apiKey = process.env.IMGBB_API_KEY;
+    const cloudflareContext = await getCloudflareContext({ async: true });
+    const apiKey =
+      cloudflareContext?.env?.IMGBB_API_KEY || process.env.IMGBB_API_KEY;
 
     if (!apiKey) {
       return NextResponse.json(
