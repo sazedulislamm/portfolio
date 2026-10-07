@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
+const emptySummary = {};
+
 function formatRelativeTime(value) {
   if (!value) {
     return 'recently';
@@ -104,7 +106,7 @@ export default function Overview({ onNavigate } = {}) {
     return () => clearInterval(interval);
   }, []);
 
-  const summary = overview?.summary ?? {};
+  const summary = overview?.summary ?? emptySummary;
   const activities = overview?.recentActivity ?? [];
 
   const kpis = useMemo(() => [

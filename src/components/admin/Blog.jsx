@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import JoditEditor from "jodit-react";
 
 const emptyPost = {
@@ -411,9 +412,10 @@ export default function Blog() {
             return (
               <article key={post.id} className="group overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
                 <div className="relative h-52 overflow-hidden bg-slate-100">
-                  <img
+                  <Image
                     src={heroImage}
                     alt={post.title}
+                    fill
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/45 via-transparent to-transparent" />
@@ -591,7 +593,7 @@ export default function Blog() {
                     <div className="mt-4 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
                       <div className="relative aspect-[16/10] bg-slate-100">
                         {form.thumb ? (
-                          <img src={form.thumb} alt={form.title || "Blog cover"} className="h-full w-full object-cover" />
+                          <Image src={form.thumb} alt={form.title || "Blog cover"} fill className="h-full w-full object-cover" />
                         ) : (
                           <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(15,23,42,0.92),_rgba(2,6,23,0.98))] px-8 text-center text-white">
                             <div>
