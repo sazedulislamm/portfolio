@@ -152,5 +152,3 @@ For the free deployment path, use Cloudflare with the OpenNext adapter, then bin
 
 See [docs/free-stack-plan.md](docs/free-stack-plan.md) for the rollout plan.
 
-
-
