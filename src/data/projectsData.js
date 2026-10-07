@@ -216,3 +216,9 @@
 //     },
 //   ],
 // };
+
+export const projects = {
+	title: "My Projects from Local Data",
+	description: "Projects loaded from the local data source.",
+	items: [],
+};
