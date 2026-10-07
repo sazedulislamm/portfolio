@@ -10,6 +10,16 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  "vars": {
+    "NEXT_PUBLIC_SITE_URL": "http://localhost:3000"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "portfolio-db",
+      "database_id": "f39fe6ae-6c92-486f-9701-11437a6c591d"
+    }
+  ],
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
