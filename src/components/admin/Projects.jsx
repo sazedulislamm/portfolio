@@ -632,6 +632,7 @@ export default function Projects() {
                       src={selectedProject.thumb}
                       alt={selectedProject.title}
                       fill
+                      unoptimized
                       className="h-full w-full object-cover"
                     />
                   ) : (
@@ -990,6 +991,7 @@ export default function Projects() {
                           src={form.thumb}
                           alt="Project preview"
                           fill
+                          unoptimized
                           className="h-40 w-full object-cover"
                         />
                       </div>

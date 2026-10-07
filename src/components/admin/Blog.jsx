@@ -416,6 +416,7 @@ export default function Blog() {
                     src={heroImage}
                     alt={post.title}
                     fill
+                    unoptimized
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/45 via-transparent to-transparent" />
@@ -593,7 +594,7 @@ export default function Blog() {
                     <div className="mt-4 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
                       <div className="relative aspect-[16/10] bg-slate-100">
                         {form.thumb ? (
-                          <Image src={form.thumb} alt={form.title || "Blog cover"} fill className="h-full w-full object-cover" />
+                          <Image src={form.thumb} alt={form.title || "Blog cover"} fill unoptimized className="h-full w-full object-cover" />
                         ) : (
                           <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(15,23,42,0.92),_rgba(2,6,23,0.98))] px-8 text-center text-white">
                             <div>

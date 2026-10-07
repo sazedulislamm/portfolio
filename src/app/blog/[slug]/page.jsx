@@ -155,7 +155,7 @@ function renderPlainBlocks(content) {
     if (isImageUrl(trimmed)) {
       blocks.push(
         <div key={`image-${index}`} className="my-4 overflow-hidden rounded-2xl border border-white/10 bg-slate-900">
-          <Image src={trimmed} alt="Blog content image" width={1600} height={900} className="h-auto w-full object-cover" />
+          <Image src={trimmed} alt="Blog content image" width={1600} height={900} unoptimized className="h-auto w-full object-cover" />
         </div>
       );
       return;
@@ -256,7 +256,7 @@ export default async function BlogPostPage({ params }) {
             <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-[#0c1826]/80 shadow-[0_14px_40px_rgba(2,6,23,0.45)]">
               <div className="relative aspect-[16/10] w-full bg-slate-900 sm:aspect-[16/9] lg:aspect-[16/8]">
                 {cover ? (
-                  <Image src={cover} alt={item.title} fill sizes="(max-width: 1024px) 100vw, 70vw" className="object-cover" priority />
+                  <Image src={cover} alt={item.title} fill sizes="(max-width: 1024px) 100vw, 70vw" unoptimized className="object-cover" priority />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-xs uppercase tracking-[0.24em] text-white/35">
                     No Cover Image

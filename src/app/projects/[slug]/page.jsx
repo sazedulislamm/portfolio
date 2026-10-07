@@ -90,7 +90,7 @@ export default async function ProjectDetail({ params }) {
             <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0c1826]/75 shadow-[0_14px_40px_rgba(2,6,23,0.45)]">
               <div className="relative h-64 w-full md:h-96 lg:h-[520px]">
                 {item.thumb ? (
-                  <Image src={item.thumb} alt={title} fill sizes="(max-width: 768px) 100vw, 75vw" className="object-cover" priority />
+                  <Image src={item.thumb} alt={title} fill sizes="(max-width: 768px) 100vw, 75vw" unoptimized className="object-cover" priority />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-sm uppercase tracking-[0.24em] text-white/35">
                     No Preview Available

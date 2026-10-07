@@ -62,7 +62,7 @@ const Work = ({ initialProjects = [] }) => {
                 >
                   <div className="relative h-52 w-full overflow-hidden rounded-t-2xl">
                     {item.thumb ? (
-                      <Image src={item.thumb} alt={title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <Image src={item.thumb} alt={title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" unoptimized className="object-cover transition-transform duration-500 group-hover:scale-105" />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-xs uppercase tracking-[0.24em] text-white/35">
                         No Preview
