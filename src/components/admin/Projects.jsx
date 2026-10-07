@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+import Image from "next/image";
 import {
   Sheet,
   SheetContent,
@@ -627,9 +628,10 @@ export default function Projects() {
               <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
                 <div className="relative h-40 w-full overflow-hidden border-b border-slate-200 bg-slate-100">
                   {selectedProject?.thumb ? (
-                    <img
+                    <Image
                       src={selectedProject.thumb}
                       alt={selectedProject.title}
+                      fill
                       className="h-full w-full object-cover"
                     />
                   ) : (
@@ -983,10 +985,11 @@ export default function Projects() {
                         : "Upload an image or paste the imgBB URL directly."}
                     </p>
                     {form.thumb ? (
-                      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-                        <img
+                      <div className="relative h-40 overflow-hidden rounded-xl border border-slate-200 bg-white">
+                        <Image
                           src={form.thumb}
                           alt="Project preview"
+                          fill
                           className="h-40 w-full object-cover"
                         />
                       </div>
