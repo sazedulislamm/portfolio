@@ -1,33 +1,30 @@
 import { NextResponse } from 'next/server';
 import { createAdminMessage } from '@/lib/cloudflare-d1';
 
-// Simple email sending utility (logs to console; for production use SendGrid, Resend, or similar)
 async function sendEmail(to, subject, message, senderEmail, senderName) {
-  try {
-    const adminEmail = process.env.ADMIN_EMAIL || 'sazedulislam9126@gmail.com';
+  const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
 
-    // Log to console (for development/debugging)
-    console.log('\n📧 EMAIL NOTIFICATION:');
-    console.log(`To: ${adminEmail}`);
-    console.log(`From: ${senderName} <${senderEmail}>`);
-    console.log(`Subject: ${subject}`);
-    console.log(`Message:\n${message}`);
-    console.log('---\n');
+  if (!accessKey) {
+    throw new Error('Web3Forms access key is not configured');
+  }
 
-    // TODO: For production, integrate with Resend, SendGrid, or Mailgun:
-    // Example with Resend (install: npm install resend):
-    // const { send } = require('resend');
-    // await send({
-    //   from: 'noreply@yourdomain.com',
-    //   to: adminEmail,
-    //   subject,
-    //   html: `<p>${message}</p><p>From: ${senderName} (${senderEmail})</p>`
-    // });
+  const response = await fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      access_key: accessKey,
+      subject,
+      from_name: senderName,
+      email: senderEmail,
+      to: to,
+      message,
+    }),
+  });
 
-    return { success: true };
-  } catch (error) {
-    console.error('Email error:', error);
-    return { success: false, error: error.message };
+  const result = await response.json().catch(() => ({}));
+
+  if (!response.ok || result.success === false) {
+    throw new Error(result.message || 'Failed to send email notification');
   }
 }
 

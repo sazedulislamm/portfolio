@@ -11,8 +11,6 @@ import Social from '../../components/Social';
 import { services as fallbackServices } from '../../helpers/servicesData';
 
 
-const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-
 const sectionVariants = {
     hidden: { opacity: 0, y: 24 },
     show: {
@@ -130,30 +128,6 @@ const Contact = () => {
                 if (!dbResponse.ok) {
                     throw new Error(dbData?.error || 'Failed to save message');
             }
-
-                // Also send via Web3Forms if configured (for redundancy)
-                if (WEB3FORMS_ACCESS_KEY) {
-                    try {
-                        const payload = {
-                            access_key: WEB3FORMS_ACCESS_KEY,
-                            subject: `New portfolio message from ${form.firstName} ${form.lastName}`.trim(),
-                            from_name: `${form.firstName} ${form.lastName}`.trim(),
-                            email: form.email,
-                            phone: form.phone,
-                            service: form.service,
-                            message: form.message,
-                        };
-
-                        await fetch('https://api.web3forms.com/submit', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload),
-                        });
-                    } catch (w3Error) {
-                        // Web3Forms is optional, don't fail if it errors
-                        console.warn('Web3Forms submission failed (non-critical):', w3Error);
-                    }
-                }
 
                 setStatus({ state: 'success', message: 'Message sent successfully!' });
             setForm({ firstName: '', lastName: '', email: '', phone: '', service: '', message: '' });
