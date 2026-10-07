@@ -1,5 +1,17 @@
 import { NextResponse } from 'next/server';
 
+function arrayBufferToBase64(arrayBuffer) {
+  const bytes = new Uint8Array(arrayBuffer);
+  const chunkSize = 0x8000;
+  let binary = '';
+
+  for (let offset = 0; offset < bytes.length; offset += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(offset, offset + chunkSize));
+  }
+
+  return btoa(binary);
+}
+
 export async function POST(request) {
   try {
     const apiKey = process.env.IMGBB_API_KEY;
@@ -28,8 +40,21 @@ export async function POST(request) {
       );
     }
 
-    const buffer = Buffer.from(await image.arrayBuffer());
-    const base64Image = buffer.toString('base64');
+    if (image.size === 0) {
+      return NextResponse.json(
+        { success: false, error: 'Image file is empty' },
+        { status: 400 },
+      );
+    }
+
+    if (image.size > 32 * 1024 * 1024) {
+      return NextResponse.json(
+        { success: false, error: 'Image file must be smaller than 32 MB' },
+        { status: 413 },
+      );
+    }
+
+    const base64Image = arrayBufferToBase64(await image.arrayBuffer());
 
     const uploadBody = new URLSearchParams();
     uploadBody.set('image', base64Image);
@@ -40,10 +65,13 @@ export async function POST(request) {
       body: uploadBody,
     });
 
-    const payload = await response.json();
+    const payload = await response.json().catch(() => ({}));
 
     if (!response.ok || !payload?.success) {
-      throw new Error(payload?.error?.message || 'Failed to upload image to imgBB');
+      const upstreamMessage = payload?.error?.message || payload?.status_txt;
+      throw new Error(
+        `imgBB upload failed (${response.status})${upstreamMessage ? `: ${upstreamMessage}` : ''}`,
+      );
     }
 
     return NextResponse.json(
