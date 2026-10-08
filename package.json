@@ -7,10 +7,10 @@
     "dev": "next dev",
     "start": "next start",
     "start:dev": "next dev",
-    "build": "next build",
+    "build": "next build && npx opennextjs-cloudflare build --skipNextBuild",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "seed:d1": "node ./scripts/seed-d1.mjs",
-    "deploy": "npx opennextjs-cloudflare build && opennextjs-cloudflare upload && node ./scripts/deploy-version.mjs",
+    "deploy": "npm run build && opennextjs-cloudflare upload && node ./scripts/deploy-version.mjs",
     "deploy:cloudflare": "wrangler deploy --config wrangler.jsonc"
   },
   "dependencies": {
